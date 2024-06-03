@@ -43,6 +43,11 @@
 
 ## Servidores en Docker
 
+Permiso:
+
+      sudo chmod 666 \var\run\docker.sock
+      Password: oracle
+
 ### Bases de datos
 
 - MySQL
