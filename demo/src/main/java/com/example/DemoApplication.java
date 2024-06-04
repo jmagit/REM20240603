@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import com.example.domains.entities.Actor;
@@ -42,11 +43,19 @@ public class DemoApplication implements CommandLineRunner {
 //		dao.findBySQL(200).forEach(System.out::println);
 //		dao.findAll((root, query, builder) -> builder.greaterThan(root.get("actorId"), 200)).forEach(System.out::println);
 //		dao.findAll((root, query, builder) -> builder.lessThanOrEqualTo(root.get("actorId"), 10)).forEach(System.out::println);
-		var item = dao.findById(1);
-		if(item.isPresent()) {
-			var actor = item.get();
-			System.out.println(actor);
-			actor.getFilmActors().forEach(p -> System.out.println(p.getFilm().getTitle()));
+//		var item = dao.findById(1);
+//		if(item.isPresent()) {
+//			var actor = item.get();
+//			System.out.println(actor);
+//			actor.getFilmActors().forEach(p -> System.out.println(p.getFilm().getTitle()));
+//		}
+//		dao.findAll(PageRequest.of(1, 10, Sort.by("firstName"))).getContent().forEach(System.out::println);
+//		dao.save(new Actor(0, "Pepito", "Grillo"));
+		var actor = new Actor(0, "", "12345678z");
+		if(actor.isValid()) {
+			dao.save(actor);
+		} else {
+			System.err.println(actor.getErrorsFields());
 		}
 	}
 
