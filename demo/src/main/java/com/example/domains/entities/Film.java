@@ -2,6 +2,7 @@ package com.example.domains.entities;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
@@ -59,11 +60,11 @@ public class Film implements Serializable {
 	private Language languageVO;
 
 	//bi-directional many-to-one association to FilmActor
-	@OneToMany(mappedBy="film")
+	@OneToMany(mappedBy="film", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<FilmActor> filmActors;
 
 	//bi-directional many-to-one association to FilmCategory
-	@OneToMany(mappedBy="film")
+	@OneToMany(mappedBy="film", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<FilmCategory> filmCategories;
 
 	//bi-directional many-to-one association to Inventory
@@ -180,6 +181,15 @@ public class Film implements Serializable {
 	public FilmActor addFilmActor(FilmActor filmActor) {
 		getFilmActors().add(filmActor);
 		filmActor.setFilm(this);
+
+		return filmActor;
+	}
+
+	public FilmActor addFilmActor(Actor actor) {
+		var filmActor = new FilmActor();
+		filmActor.setFilm(this);
+		filmActor.setActor(actor);
+		getFilmActors().add(filmActor);
 
 		return filmActor;
 	}
