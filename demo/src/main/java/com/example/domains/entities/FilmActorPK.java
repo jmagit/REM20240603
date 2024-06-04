@@ -1,7 +1,7 @@
 package com.example.domains.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * The primary key class for the film_actor database table.

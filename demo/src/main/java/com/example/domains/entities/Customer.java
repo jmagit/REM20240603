@@ -1,7 +1,7 @@
 package com.example.domains.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
