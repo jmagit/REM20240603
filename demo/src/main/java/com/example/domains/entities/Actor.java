@@ -4,6 +4,7 @@ import java.io.Serializable;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -36,6 +37,19 @@ public class Actor implements Serializable {
 
 	public Actor() {
 	}
+	
+	public Actor(int actorId) {
+		super();
+		this.actorId = actorId;
+	}
+
+	public Actor(int actorId, String firstName, String lastName) {
+		super();
+		this.actorId = actorId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
 
 	public int getActorId() {
 		return this.actorId;
@@ -91,4 +105,35 @@ public class Actor implements Serializable {
 		return filmActor;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(actorId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Actor other = (Actor) obj;
+		return actorId == other.actorId;
+	}
+
+	@Override
+	public String toString() {
+		return "Actor [actorId=" + actorId + ", firstName=" + firstName + ", lastName=" + lastName + ", lastUpdate="
+				+ lastUpdate + "]";
+	}
+
+	public void jubilate() {
+		
+	}
+	
+	public void recibePremio(String premio) {
+		
+	}
+	
 }
