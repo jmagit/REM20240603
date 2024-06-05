@@ -1,6 +1,7 @@
 package com.example;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import com.example.domains.entities.Actor;
+import com.example.domains.entities.models.ActorDTO;
+import com.example.domains.entities.models.ActorShort;
 import com.example.domains.repositories.ActorRepository;
 
 import jakarta.transaction.Transactional;
@@ -22,10 +25,14 @@ public class DemoApplication implements CommandLineRunner {
 	@Autowired
 	ActorRepository dao;
 	
+	@Value("${mi.valor:Valor por defecto}")
+	String config;
+	
 	@Override
 	@Transactional
 	public void run(String... args) throws Exception {
 		System.err.println("Aplicación arrancada!!!!.");
+		System.err.println(config);
 		
 //		dao.save(new Actor(0, "Pepito", "Grillo"));
 //		var item = dao.findById(204);
@@ -51,12 +58,22 @@ public class DemoApplication implements CommandLineRunner {
 //		}
 //		dao.findAll(PageRequest.of(1, 10, Sort.by("firstName"))).getContent().forEach(System.out::println);
 //		dao.save(new Actor(0, "Pepito", "Grillo"));
-		var actor = new Actor(0, "", "12345678z");
-		if(actor.isValid()) {
-			dao.save(actor);
-		} else {
-			System.err.println(actor.getErrorsFields());
-		}
+//		var actor = new Actor(0, "", "12345678z");
+//		if(actor.isValid()) {
+//			dao.save(actor);
+//		} else {
+//			System.err.println(actor.getErrorsFields());
+//		}
+//		dao.findByActorIdGreaterThan(200).forEach(item -> System.out.println(ActorDTO.from(item)));
+//		dao.queryByActorIdGreaterThan(200).forEach(System.out::println);
+//		dao.readByActorIdGreaterThan(200).forEach(item -> System.out.println(item.getId() + " -> " + item.getNombre()));
+//		dao.readByActorIdGreaterThan(200).forEach(item -> System.out.println(item.getClass().getName()));
+		dao.searchByActorIdGreaterThan(200, Actor.class).forEach(System.out::println);
+		dao.searchByActorIdGreaterThan(200, ActorDTO.class).forEach(System.out::println);
+		dao.searchByActorIdGreaterThan(200, ActorShort.class).forEach(item -> System.out.println(item.getId() + " -> " + item.getNombre()));
+		record Local(int actorId, String firstName) {}
+		dao.searchByActorIdGreaterThan(200, Local.class).forEach(System.out::println);
+		
 	}
 
 }
