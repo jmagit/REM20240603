@@ -5,6 +5,7 @@
 - [JDK](https://www.oracle.com/java/technologies/downloads/)
 - [Eclipse IDE for Enterprise Java and Web Developers](https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2024-03/R/eclipse-jee-2024-03-R-win32-x86_64.zip)
 - [Spring Tools 4 for Eclipse](https://spring.io/tools/)
+- [Project Lombok](https://projectlombok.org/download)
 - Clientes de bases de datos (opcionales)
   - [HeidiSQL](https://www.heidisql.com/download.php)
   - [MongoDB Compass](https://www.mongodb.com/try/download/compass)
