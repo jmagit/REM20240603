@@ -9,9 +9,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import com.example.domains.entities.Actor;
+import com.example.domains.entities.Film;
 import com.example.domains.entities.models.ActorDTO;
 import com.example.domains.entities.models.ActorShort;
 import com.example.domains.repositories.ActorRepository;
+import com.example.domains.repositories.FilmRepository;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.transaction.Transactional;
 
@@ -24,6 +27,9 @@ public class DemoApplication implements CommandLineRunner {
 
 	@Autowired
 	ActorRepository dao;
+	
+	@Autowired
+	FilmRepository daoPeli;
 	
 	@Value("${mi.valor:Valor por defecto}")
 	String config;
@@ -68,12 +74,20 @@ public class DemoApplication implements CommandLineRunner {
 //		dao.queryByActorIdGreaterThan(200).forEach(System.out::println);
 //		dao.readByActorIdGreaterThan(200).forEach(item -> System.out.println(item.getId() + " -> " + item.getNombre()));
 //		dao.readByActorIdGreaterThan(200).forEach(item -> System.out.println(item.getClass().getName()));
-		dao.searchByActorIdGreaterThan(200, Actor.class).forEach(System.out::println);
-		dao.searchByActorIdGreaterThan(200, ActorDTO.class).forEach(System.out::println);
-		dao.searchByActorIdGreaterThan(200, ActorShort.class).forEach(item -> System.out.println(item.getId() + " -> " + item.getNombre()));
-		record Local(int actorId, String firstName) {}
-		dao.searchByActorIdGreaterThan(200, Local.class).forEach(System.out::println);
-		
+//		dao.searchByActorIdGreaterThan(200, Actor.class).forEach(System.out::println);
+//		dao.searchByActorIdGreaterThan(200, ActorDTO.class).forEach(System.out::println);
+//		dao.searchByActorIdGreaterThan(200, ActorShort.class).forEach(item -> System.out.println(item.getId() + " -> " + item.getNombre()));
+//		record Local(int actorId, String firstName) {}
+//		dao.searchByActorIdGreaterThan(200, Local.class).forEach(System.out::println);
+		var objectMapper = new com.fasterxml.jackson.databind.ObjectMapper();
+//		var objectMapper = new com.fasterxml.jackson.dataformat.xml.XmlMapper();
+
+//		System.out.println(objectMapper.writeValueAsString(dao.findById(1).get()));
+//		System.out.println(objectMapper.writeValueAsString(dao.searchByActorIdGreaterThan(200, ActorDTO.class)));
+//		System.out.println(objectMapper.writeValueAsString(dao.findAllBy(ActorShort.class)));
+		record PeliLocal(@JsonProperty("id") int filmId, @JsonProperty("titulo") String title) {}
+		System.out.println(objectMapper.writeValueAsString(daoPeli.findAllBy(PeliLocal.class)));
+
 	}
 
 }
