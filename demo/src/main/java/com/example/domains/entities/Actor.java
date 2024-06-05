@@ -12,6 +12,10 @@ import java.util.Objects;
 
 import com.example.domains.core.entities.EntityBase;
 import com.example.domains.core.validation.NIF;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
@@ -27,25 +31,31 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="actor_id", unique=true, nullable=false)
+	@JsonProperty("id")
 	private int actorId;
 
 	@Column(name="first_name", nullable=false, length=45)
 	@NotBlank
 	@Size(max = 45, min=2)
 	@Pattern(regexp = "^[A-Z]+$", message = "tiene que estar en mayúsculas")
+	@JsonProperty("nombre")
 	private String firstName;
 
 	@Column(name="last_name", nullable=false, length=45)
 	@NotBlank
 	@Size(max = 45, min=2)	
 	@NIF
+	@JsonProperty("apellidos")
 	private String lastName;
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
+//	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	@JsonIgnore
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to FilmActor
 	@OneToMany(mappedBy="actor", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<FilmActor> filmActors;
 
 	public Actor() {

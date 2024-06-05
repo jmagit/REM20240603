@@ -1,13 +1,16 @@
 package com.example.domains.entities.models;
 
 import com.example.domains.entities.Actor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
 @Data
 public class ActorDTO {
 	private int id;
+	@JsonProperty("nombre")
 	private String firstName;
+	@JsonProperty("apellidos")
 	private String lastName;
 
 	public ActorDTO(int actorId, String firstName, String lastName) {
