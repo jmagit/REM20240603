@@ -28,8 +28,8 @@ public class DemoApplication implements CommandLineRunner {
 	@Autowired
 	ActorRepository dao;
 	
-	@Autowired
-	FilmRepository daoPeli;
+//	@Autowired
+//	FilmRepository daoPeli;
 	
 	@Value("${mi.valor:Valor por defecto}")
 	String config;
@@ -85,8 +85,8 @@ public class DemoApplication implements CommandLineRunner {
 //		System.out.println(objectMapper.writeValueAsString(dao.findById(1).get()));
 //		System.out.println(objectMapper.writeValueAsString(dao.searchByActorIdGreaterThan(200, ActorDTO.class)));
 //		System.out.println(objectMapper.writeValueAsString(dao.findAllBy(ActorShort.class)));
-		record PeliLocal(@JsonProperty("id") int filmId, @JsonProperty("titulo") String title) {}
-		System.out.println(objectMapper.writeValueAsString(daoPeli.findAllBy(PeliLocal.class)));
+//		record PeliLocal(@JsonProperty("id") int filmId, @JsonProperty("titulo") String title) {}
+//		System.out.println(objectMapper.writeValueAsString(daoPeli.findAllBy(PeliLocal.class)));
 
 	}
 

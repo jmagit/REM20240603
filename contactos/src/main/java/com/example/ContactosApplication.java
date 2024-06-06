@@ -65,7 +65,7 @@ public class ContactosApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.err.println("Instancia arrancada");
-//		Contacto contacto;
+		Contacto contacto;
 //		int id = 1;
 //		Optional<Contacto> encontrado = dao.findAll(PageRequest.of(0, 1, Sort.by(Direction.DESC, "id"))).stream()
 //				.findFirst();
@@ -76,11 +76,15 @@ public class ContactosApplication implements CommandLineRunner {
 //				"https://upload.wikimedia.org/wikipedia/commons/b/b5/Jiminy_Cricket.png", true);
 //		dao.save(contacto);
 //		System.out.println("Creado");
-//		encontrado = dao.findById(id);
-//		if (encontrado.isPresent()) {
-//			System.out.println(encontrado.get());
-//		} else
-//			System.out.println("No encontrado");
+		var encontrado = dao.findById("665ba340216ff98fa1a26a13");
+		if (encontrado.isPresent()) {
+			contacto = encontrado.get();
+			contacto.setApellidos("Woodall");
+			contacto.setNombre("Pietro");
+			dao.save(contacto);
+			System.out.println(contacto);
+		} else
+			System.out.println("No encontrado");
 //		if (encontrado.isPresent()) {
 //			encontrado.get().setNombre(encontrado.get().getNombre().toUpperCase());
 //			encontrado.get().setApellidos(encontrado.get().getApellidos().toUpperCase());
