@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 /**
  * The persistent class for the language database table.
@@ -29,10 +31,12 @@ public class Language implements Serializable {
 
 	//bi-directional many-to-one association to Film
 	@OneToMany(mappedBy="language1")
-	private List<Film> films1;
+	@JsonBackReference
+	private List<Film> films;
 
 	//bi-directional many-to-one association to Film
 	@OneToMany(mappedBy="languageVO")
+	@JsonBackReference
 	private List<Film> filmsVO;
 
 	public Language() {
@@ -62,23 +66,23 @@ public class Language implements Serializable {
 		this.name = name;
 	}
 
-	public List<Film> getFilms1() {
-		return this.films1;
+	public List<Film> getFilms() {
+		return this.films;
 	}
 
-	public void setFilms1(List<Film> films1) {
-		this.films1 = films1;
+	public void setFilms(List<Film> films1) {
+		this.films = films1;
 	}
 
-	public Film addFilms1(Film films1) {
-		getFilms1().add(films1);
+	public Film addFilms(Film films1) {
+		getFilms().add(films1);
 		films1.setLanguage1(this);
 
 		return films1;
 	}
 
 	public Film removeFilms1(Film films1) {
-		getFilms1().remove(films1);
+		getFilms().remove(films1);
 		films1.setLanguage1(null);
 
 		return films1;
