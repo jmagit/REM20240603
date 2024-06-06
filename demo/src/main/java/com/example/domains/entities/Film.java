@@ -2,6 +2,10 @@ package com.example.domains.entities;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -9,6 +13,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 
 /**
@@ -32,6 +39,7 @@ public class Film implements Serializable {
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
 	private Timestamp lastUpdate;
 
+	@Min(0)
 	private int length;
 
 	@Column(length=1)
@@ -44,19 +52,24 @@ public class Film implements Serializable {
 	private byte rentalDuration;
 
 	@Column(name="rental_rate", nullable=false, precision=10, scale=2)
+	@Positive
 	private BigDecimal rentalRate;
 
 	@Column(name="replacement_cost", nullable=false, precision=10, scale=2)
 	private BigDecimal replacementCost;
 
 	@Column(nullable=false, length=128)
+	@JsonProperty("titulo")
+	@NotBlank
+	@Size(max = 128)
+	@Schema(description = "Aqui le cuento lo que tenga que saber sobre el **titulo** (mutacion)")
 	private String title;
 
 	//bi-directional many-to-one association to Language
 	@ManyToOne
 	@JoinColumn(name="language_id", nullable=false)
 	@JsonManagedReference
-	private Language language1;
+	private Language language;
 
 	//bi-directional many-to-one association to Language
 	@ManyToOne
@@ -162,12 +175,12 @@ public class Film implements Serializable {
 		this.title = title;
 	}
 
-	public Language getLanguage1() {
-		return this.language1;
+	public Language getLanguage() {
+		return this.language;
 	}
 
-	public void setLanguage1(Language language1) {
-		this.language1 = language1;
+	public void setLanguage(Language language) {
+		this.language = language;
 	}
 
 	public Language getLanguageVO() {

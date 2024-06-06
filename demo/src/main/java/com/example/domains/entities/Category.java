@@ -2,6 +2,8 @@ package com.example.domains.entities;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -32,11 +34,13 @@ public class Category implements Serializable {
 
 	@Column(nullable=false, length=25)
 	@JsonProperty("categoria")
+	@Pattern(regexp = "^[A-Z]+$", message = "tiene que estar en mayúsculas")
 	private String name;
 
 	//bi-directional many-to-one association to FilmCategory
 	@OneToMany(mappedBy="category")
 	@JsonBackReference
+	@JsonIgnore
 	private List<FilmCategory> filmCategories;
 
 	public Category() {

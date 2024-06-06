@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -30,13 +31,15 @@ public class Language implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to Film
-	@OneToMany(mappedBy="language1")
+	@OneToMany(mappedBy="language")
 	@JsonBackReference
+	@JsonIgnore
 	private List<Film> films;
 
 	//bi-directional many-to-one association to Film
 	@OneToMany(mappedBy="languageVO")
 	@JsonBackReference
+	@JsonIgnore
 	private List<Film> filmsVO;
 
 	public Language() {
@@ -76,14 +79,14 @@ public class Language implements Serializable {
 
 	public Film addFilms(Film films1) {
 		getFilms().add(films1);
-		films1.setLanguage1(this);
+		films1.setLanguage(this);
 
 		return films1;
 	}
 
 	public Film removeFilms1(Film films1) {
 		getFilms().remove(films1);
-		films1.setLanguage1(null);
+		films1.setLanguage(null);
 
 		return films1;
 	}
