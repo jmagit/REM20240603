@@ -16,8 +16,8 @@ public class Contacto {
 	private String username;
 	private String firstname;
 	private String lastname;
-	private String alias;
+//	private String alias;
 //	private List<String> email;
-	private boolean active;
+//	private boolean active;
 
 }
